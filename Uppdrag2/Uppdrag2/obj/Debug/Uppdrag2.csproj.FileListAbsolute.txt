@@ -1,0 +1,7 @@
+C:\Users\coffa\source\repos\Uppdrag2\Uppdrag2\bin\Debug\Uppdrag2.exe.config
+C:\Users\coffa\source\repos\Uppdrag2\Uppdrag2\bin\Debug\Uppdrag2.exe
+C:\Users\coffa\source\repos\Uppdrag2\Uppdrag2\bin\Debug\Uppdrag2.pdb
+C:\Users\coffa\source\repos\Uppdrag2\Uppdrag2\obj\Debug\Uppdrag2.csproj.AssemblyReference.cache
+C:\Users\coffa\source\repos\Uppdrag2\Uppdrag2\obj\Debug\Uppdrag2.csproj.CoreCompileInputs.cache
+C:\Users\coffa\source\repos\Uppdrag2\Uppdrag2\obj\Debug\Uppdrag2.exe
+C:\Users\coffa\source\repos\Uppdrag2\Uppdrag2\obj\Debug\Uppdrag2.pdb
