@@ -1,4 +1,4 @@
-﻿/* Author: Christoffer Wiik
+/* Author: Christoffer Wiik
  * E-mail: Coffa19@hotmail.com
  * Ltu-mail: chrwii-3@student.ltu.se
  * Kurskod: L0002B
@@ -23,18 +23,15 @@ namespace Uppdrag2
         public string District { get; set; }
         public int Sold { get; set; }
         public string[] Employes { get; set; }
-        public static Sellers GetSeller()
+        public Sellers()
         {
-            return new Sellers()
-            {
-                Name = Console.ReadLine(),
-                Id = Console.ReadLine(),
-                District = Console.ReadLine(),
-                Sold = int.Parse(Console.ReadLine())
-            };
+            Name = Name;
+            Id = Id;
+            District = District;
+            Sold = Sold;
         }
         public int NrSellers { get; set; }
-        public static void Menu()
+        public void Menu()
         {
             string[] MenuOptions = new string[] { "Inmatningar", "Utskrift", "Avsluta" };       //Dom olika valens namn i menyn
             int MenuSelected = 0;
@@ -81,7 +78,7 @@ namespace Uppdrag2
                     switch (MenuSelected)
                     {
                         case 0:
-                            AddEmploye() ;  //skickas vidare till metod för inmatning
+                            AddEmploye(" ");  //skickas vidare till metod för inmatning
                             break;
                         case 1:
                             Print();    //skickas vidare till metod för utskrift
@@ -93,49 +90,49 @@ namespace Uppdrag2
                 }
             }
         }
-        public void AddEmploye()
+        public string AddEmploye(string n)
         {
-
+            Console.WriteLine("Skriv in antal anställda:");
+            int NrSellers = int.Parse(Console.ReadLine());
+            
+            Sellers[] Employes = new Sellers[NrSellers];
             int Lvl1, Lvl2, Lvl3, Lvl4;
             int[] soldLvl = new int[] { Lvl1 = 0, Lvl2 = 0, Lvl3 = 0, Lvl4 = 0 };
-
-            var Employes = new Sellers[NrSellers];
-            for (int i = 0; i < NrSellers - 1; i++)
+            
+            Sellers employe = new Sellers();
+            for (int i = 0; i < Employes.Length; i++)
             {
-                var Employe = new Sellers();
-
-                Console.WriteLine("Säljare" + i);
+                Console.Clear();
                 Console.WriteLine("Skriv in Namn: ");
-                Employe.Name = Console.ReadLine();
+                employe.Name = Console.ReadLine();
 
                 Console.WriteLine("Skriv in person nr: ");
-                Employe.Id = Console.ReadLine();
+                employe.Id = Console.ReadLine();
 
                 Console.WriteLine("Skriv in distrikt: ");
-                Employe.District = Console.ReadLine();
+                employe.District = Console.ReadLine();
 
                 Console.WriteLine("Skriv in antal sålda artiklar: ");
-                Employe.Sold = int.Parse(Console.ReadLine());
-
-                Employes[i] = GetSeller();
-                if (Employe.Sold >= 0 && Employe.Sold <= 50)
+                employe.Sold = int.Parse(Console.ReadLine());
+                
+                if (Sold >= 0 && Sold <= 50)
                 {
-                    soldLvl[Lvl1] ++;
+                    soldLvl[Lvl1]++;
                     Console.WriteLine("Antal försäljare i nivå 1: " + Lvl1);
                 }
-                else if (Employe.Sold > 50 && Employe.Sold <= 99)
+                else if (Sold > 50 && Sold <= 99)
                 {
-                    soldLvl[Lvl2] ++;
+                    soldLvl[Lvl2]++;
                     Console.WriteLine("Antal försäljare i nivå 2: " + Lvl2);
                 }
-                else if (Employe.Sold > 99 && Employe.Sold <= 199)
+                else if (Sold > 99 && Sold <= 199)
                 {
-                    soldLvl[Lvl3] ++;
+                    soldLvl[Lvl3]++;
                     Console.WriteLine("Antal försäljare i nivå 3: " + Lvl3);
                 }
-                else if (Employe.Sold > 199)
+                else if (Sold > 199)
                 {
-                    soldLvl[Lvl4] ++;
+                    soldLvl[Lvl4]++;
                     Console.WriteLine("Antal försäljare i nivå 4:" + Lvl4);
                 }
                 else
@@ -143,15 +140,45 @@ namespace Uppdrag2
                     Console.WriteLine("Inga försäljnings uppgifter");
                 }
             }
-            return;
+            
+
+            for (int i = 0; i < Employes.Length; i++)
+            {
+                Console.WriteLine("Säljare: " + i);
+                Console.WriteLine(employes);
+            }
+            Console.ReadKey();
+            return n;
         }
         public void Print()
         {
+            bool sort;
+            string s = " ";
+            do
+            {
+                sort = false;
+                for (int i = 0; i < Employes.Length; i++)
+                {
+                    for (int j = 0; j < Employes.Length - 1; j++)
+                    {
+                        if (string.Compare(Employes[i], Employes[j + 1]) < 0)
+                        {
+                            s = Employes[i];
+                            Employes[i] = Employes[j + 1];
+                            Employes[j + 1] = s;
+                            sort = true;
+                        }
+                    }
+                }
+            }
+            while (sort);
+            
             for (int i = 0; i < Employes.Length; i++)
             {
                 Console.WriteLine("Säljare: " + i);
                 Console.WriteLine(Employes[i]);
             }
+            Console.ReadKey();
         }
         public static void Exit()
         {
@@ -159,20 +186,17 @@ namespace Uppdrag2
             Console.ReadKey();
             Environment.Exit(0);
         }
-        private static void Sorting()
-        {
-            
-        }
     }
     class Program
     {
         public static void Main(string[] args)     //Start metoden
         {
-            Console.WriteLine("Skriv in antal anställda:");
-            int NrSellers = int.Parse(Console.ReadLine());
-
-            Sellers[] Employes = new Sellers[NrSellers];
-            Sellers.Menu();
+            
+            Sellers s = new Sellers();
+           
+           
+            s.Menu();
         }
     }
 }
+
