@@ -94,7 +94,7 @@ namespace Uppdrag2
                             AddEmploye("a", "b", "c", 1);  //skickas vidare till metod för inmatning
                             break;
                         case 1:
-                            Print();    //skickas vidare till metod för utskrift
+                            Print();    //skickas vidare till metod för utskrift        <-----getting error code here cs7036
                             break;
                         case 2:
                             Exit();     //Metod för att avsluta
