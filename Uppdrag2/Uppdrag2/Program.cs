@@ -22,16 +22,29 @@ namespace Uppdrag2
         public string Id { get; set; }
         public string District { get; set; }
         public int Sold { get; set; }
-        public string[] Employes { get; set; }
-        public Sellers()
+        public override string ToString()
+        {
+            string person = Name + "\n" + Id + "\n" + District + "\n" + Sold;
+            return person;
+        }
+        public Sellers(string Name, string Id, string District, int Sold)
         {
             Name = Name;
             Id = Id;
             District = District;
             Sold = Sold;
         }
-        public int NrSellers { get; set; }
-        public void Menu()
+        public Sellers()
+        {
+
+        }
+        
+    }
+    class Program
+    {
+        public int[] soldLvl { get; set; }
+        public string[] employes { get; set; }
+        public static void Main(string[] args)     //Start metoden
         {
             string[] MenuOptions = new string[] { "Inmatningar", "Utskrift", "Avsluta" };       //Dom olika valens namn i menyn
             int MenuSelected = 0;
@@ -78,7 +91,7 @@ namespace Uppdrag2
                     switch (MenuSelected)
                     {
                         case 0:
-                            AddEmploye(" ");  //skickas vidare till metod för inmatning
+                            AddEmploye("a", "b", "c", 1);  //skickas vidare till metod för inmatning
                             break;
                         case 1:
                             Print();    //skickas vidare till metod för utskrift
@@ -90,95 +103,111 @@ namespace Uppdrag2
                 }
             }
         }
-        public string AddEmploye(string n)
+        public static string AddEmploye(string Name, string Id, string District, int Sold)
         {
-            Console.WriteLine("Skriv in antal anställda:");
-            int NrSellers = int.Parse(Console.ReadLine());
-            
-            Sellers[] Employes = new Sellers[NrSellers];
             int Lvl1, Lvl2, Lvl3, Lvl4;
             int[] soldLvl = new int[] { Lvl1 = 0, Lvl2 = 0, Lvl3 = 0, Lvl4 = 0 };
-            
-            Sellers employe = new Sellers();
-            for (int i = 0; i < Employes.Length; i++)
+            Console.WriteLine("Skriv in antal anställda:");
+            int NrSellers = int.Parse(Console.ReadLine());
+            string[] employes = new string[NrSellers];
+
+            Sellers person = new Sellers();
+            for (int i = 0; i < NrSellers; i++)
             {
-                Console.Clear();
-                Console.WriteLine("Skriv in Namn: ");
-                employe.Name = Console.ReadLine();
-
-                Console.WriteLine("Skriv in person nr: ");
-                employe.Id = Console.ReadLine();
-
-                Console.WriteLine("Skriv in distrikt: ");
-                employe.District = Console.ReadLine();
-
-                Console.WriteLine("Skriv in antal sålda artiklar: ");
-                employe.Sold = int.Parse(Console.ReadLine());
                 
+                Console.Clear();
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine();
+                Console.WriteLine("Skriv in Namn: ");
+                person.Name = Console.ReadLine();
+                Console.WriteLine();
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine();
+
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine();
+                Console.WriteLine("Skriv in person nr: ");
+                person.Id = Console.ReadLine();
+                Console.WriteLine();
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine();
+
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine();
+                Console.WriteLine("Skriv in distrikt: ");
+                person.District = Console.ReadLine();
+                Console.WriteLine();
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine();
+
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine();
+                Console.WriteLine("Skriv in antal sålda artiklar: ");
+                person.Sold = int.Parse(Console.ReadLine());
+                Console.WriteLine();
+                Console.WriteLine("*********************************************************");
                 if (Sold >= 0 && Sold <= 50)
                 {
                     soldLvl[Lvl1]++;
-                    Console.WriteLine("Antal försäljare i nivå 1: " + Lvl1);
                 }
                 else if (Sold > 50 && Sold <= 99)
                 {
                     soldLvl[Lvl2]++;
-                    Console.WriteLine("Antal försäljare i nivå 2: " + Lvl2);
                 }
-                else if (Sold > 99 && Sold <= 199)
+                else if (Sold >= 100 && Sold <= 199)
                 {
                     soldLvl[Lvl3]++;
-                    Console.WriteLine("Antal försäljare i nivå 3: " + Lvl3);
-                }
-                else if (Sold > 199)
-                {
-                    soldLvl[Lvl4]++;
-                    Console.WriteLine("Antal försäljare i nivå 4:" + Lvl4);
                 }
                 else
                 {
-                    Console.WriteLine("Inga försäljnings uppgifter");
+                    soldLvl[Lvl4]++;
                 }
+                employes[i] = person.ToString();
             }
-            
-
-            for (int i = 0; i < Employes.Length; i++)
-            {
-                Console.WriteLine("Säljare: " + i);
-                Console.WriteLine(employes);
-            }
-            Console.ReadKey();
-            return n;
+            return person.ToString();
         }
-        public void Print()
+        public string Print(string person)
         {
+            
+            int s = 1;
+            Sorting(employes);
+            foreach (var item in employes)
+            {
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine();
+                Console.WriteLine("Säljare: " + s++);
+                Console.WriteLine(item.ToString());
+                Console.WriteLine(soldLvl);
+                Console.WriteLine();
+                Console.WriteLine("*********************************************************");
+                Console.ReadKey();
+            }
+            return person;
+        }
+        public string Sorting(string[] employes)
+        {
+            string sorted_arr = employes.ToString();
             bool sort;
             string s = " ";
             do
             {
                 sort = false;
-                for (int i = 0; i < Employes.Length; i++)
+                for (int i = 0; i < employes.Length; i++)
                 {
-                    for (int j = 0; j < Employes.Length - 1; j++)
+                    for (int j = 0; j < employes.Length - 1; j++)
                     {
-                        if (string.Compare(Employes[i], Employes[j + 1]) < 0)
+                        if (string.Compare(employes[i], employes[j + 1]) < 0)
                         {
-                            s = Employes[i];
-                            Employes[i] = Employes[j + 1];
-                            Employes[j + 1] = s;
+                            s = employes[i];
+                            employes[i] = employes[j + 1];
+                            employes[j + 1] = s;
                             sort = true;
                         }
                     }
                 }
             }
             while (sort);
-            
-            for (int i = 0; i < Employes.Length; i++)
-            {
-                Console.WriteLine("Säljare: " + i);
-                Console.WriteLine(Employes[i]);
-            }
-            Console.ReadKey();
+            return employes[1];
         }
         public static void Exit()
         {
@@ -186,17 +215,6 @@ namespace Uppdrag2
             Console.ReadKey();
             Environment.Exit(0);
         }
-    }
-    class Program
-    {
-        public static void Main(string[] args)     //Start metoden
-        {
-            
-            Sellers s = new Sellers();
-           
-           
-            s.Menu();
-        }
+        
     }
 }
-
